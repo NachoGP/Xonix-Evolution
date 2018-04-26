@@ -1,0 +1,116 @@
+<html lang="en">
+<link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+<head>
+  <title>Xonix Pro Revolution 2018</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="style/reset.min.css">
+  <link rel="stylesheet" type="text/css" href="style/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Cousine:400,700" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/MyriadPro-Bold.otf">
+  <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="scripts/event_handler.js"></script>
+  <script type="text/javascript" src="scripts/movable.js"></script>
+  <script type="text/javascript" src="scripts/vector.js"></script>
+  <script type="text/javascript" src="scripts/grid.js"></script>
+  <script type="text/javascript" src="scripts/ball.js"></script>
+  <script type="text/javascript" src="scripts/monster.js"></script>
+  <script type="text/javascript" src="scripts/player.js"></script>
+  <script type="text/javascript" src="scripts/game.js"></script>
+  <script src="https://use.fontawesome.com/8dd2d21d1f.js"></script>
+  <!--    plugin de JQuery llamado MsgBox y personalizarlo con css: Game Over en game.js-->
+  <script src="http://raw.githack.com/composite/jQuery.MsgBox/master/jquery.msgbox.min.js"></script>
+  <script>
+    
+    var canvasWidth = 840,
+      canvasHeight = 460,
+      frame = 20,
+      blockSize = 10;
+    var game;
+
+    function updateScore(value) {
+      $('#score').html(value);
+    }
+
+    function updateLives(value) {
+      $('#lives').html(value);
+    }
+
+    function updateConquered(value) {
+      $('#conqured').html(value);
+    }
+
+    function updateTimer(value) {
+      $('#timer').html(value);
+    }
+
+    function gameOver(value) {}
+    $(document).ready(function() {
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      var game = new Game(canvasHeight / blockSize, canvasWidth / blockSize, blockSize, frame / blockSize, ctx);
+      game.addEventListener('conquer', updateConquered, this);
+      game.addEventListener('fail', updateLives, this);
+      game.addEventListener('score', updateScore, this);
+      game.addEventListener('end', gameOver, this);
+      game.addEventListener('timer', updateTimer, this);
+      game.start();
+    });
+    
+  </script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="subtitle">
+      <img src="images/neo.svg" alt="logo-neoland">
+    </div>
+    <h1 class="general-title">
+      - LET´S CONQUER YOUR NEOLAND -</h1>
+    <div id="container">
+      <div class="canvas-wrapper">
+        <canvas id="canvas" width="840" height="460"></canvas>
+      </div>
+      <div class="clear"></div>
+      <div id="menutec">
+        <h1>Menu</h1>
+        <ul>
+         <li><input class="playagain"type="boton" value="PLAY" onclick="javascript:window.location.reload();"/></li>
+          <li><a href="rules.html" class="anim-underline-ltr">How to play</a></li>
+          <li><a href="techniques.html" class="anim-underline-ltr">Improving Skills</a></li>
+          <li><a href="beapro.html" class="anim-underline-ltr">Be a PRO</a></li>
+          <li><a href="history.html" class="anim-underline-ltr">About The Game</a></li>
+          <li><a href="#" target="_blank" class="anim-underline-ltr">World Ranking</a></li>
+          
+        </ul>
+<!--        //Cio G. Codigo-->
+        <script><script type="text/javascript">
+              function reFresh() 
+              location.reload(true)
+              }
+</script>
+      </div>
+      <div id="menurrss">
+        <ul>
+          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+        </ul>
+      </div>
+      <div id="status">
+        <i class="fa fa-star" aria-hidden="true"> <em class="scores">Score:</em></i> <span id="score">0</span>
+        <i class="fa fa-heart" aria-hidden="true"><em class="scores"> Lives:</em></i> <span id="lives">3</span>
+        <i class="fa fa-window-maximize" aria-hidden="true"><em class="scores"> Full:</em></i><span id="conqured">0</span>% <span id="timer">90</span>
+        <span class="clock"></span>
+        <span class="seconds">seconds</span>
+      </div>
+      <h2>- BOOTCAMP 2018 -</h2>
+      <div id="copyright">
+        <p>- REVISION 2018 & ADAPTED BY <a href="http://www.thehiretools.es/CioGPortfolio/" target="_blank">CIO G.</a> NEOLAND BOOTCAMP -</p>
+        <p>HTML5 VERSION CREATED BY YAIR LEVINSON AND ROEI OVED @ 2012 ORIGINAL DOS VERSION CREATED BY ILAN RAV AND DANI KATZ @ 1984</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

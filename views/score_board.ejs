@@ -1,0 +1,14 @@
+<div id="scoreBoard" class="page">
+    <div class="title">
+        HIGHSCORES TABLE
+    </div>
+    <table id="scoreBoard_table">
+        <% for (var i=0; i < this.length; i++) { %>
+        <tr>
+            <td style="width: 50px;"><%= i + 1 %></td>
+            <td style="width: 200px;"><%= this[i].player %></td>
+            <td><%= this[i].score %></td>
+        </tr>
+        <% } %>
+    </table>
+</div>
