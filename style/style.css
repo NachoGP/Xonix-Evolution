@@ -220,21 +220,21 @@ span.resalte{
 #menurrss{
   margin: 2px 0;
 }
-#menurrss ul {
+#menurrss {
   display: flex;
   position: absolute;
-  top: 540px;
   left: 58px;
+  bottom: 30px;
 }
-#menurrss li a {
+#menurrss a {
   text-decoration: none;
   color: #484848;
   padding: 0 1em;
 }
-#menurrss li a i:hover {
+#menurrss a i:hover {
  color:var(--cursorStella);
 }
-#menurrss li a i {
+#menurrss a i {
   font-size: 30px;
 }
 .intro_cotainer {
@@ -249,7 +249,9 @@ span.resalte{
 }
 #container #canvas {
   align-content: center;
-  background: #484848;
+  /* background: #484848; */
+  background: #fff;
+  background: url('images/thecave.png')
 }
 #status {
   width: 100%;

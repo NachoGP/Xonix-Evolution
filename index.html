@@ -1,6 +1,7 @@
 <html lang="en">
 <link rel="stylesheet" href="style.css">
-<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta name="viewport"
+  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
 <head>
   <title>Xonix Pro Revolution 2018</title>
@@ -22,12 +23,14 @@
   <!--    plugin de JQuery llamado MsgBox y personalizarlo con css: Game Over en game.js-->
   <script src="http://raw.githack.com/composite/jQuery.MsgBox/master/jquery.msgbox.min.js"></script>
   <script>
-    
+
     var canvasWidth = 840,
       canvasHeight = 460,
       frame = 20,
       blockSize = 10;
     var game;
+
+    function startGame(value) { }
 
     function updateScore(value) {
       $('#score').html(value);
@@ -45,8 +48,9 @@
       $('#timer').html(value);
     }
 
-    function gameOver(value) {}
-    $(document).ready(function() {
+    function gameOver(value) { }
+
+    $(document).ready(function () {
       var canvas = document.getElementById("canvas");
       var ctx = canvas.getContext("2d");
       var game = new Game(canvasHeight / blockSize, canvasWidth / blockSize, blockSize, frame / blockSize, ctx);
@@ -54,10 +58,13 @@
       game.addEventListener('fail', updateLives, this);
       game.addEventListener('score', updateScore, this);
       game.addEventListener('end', gameOver, this);
+      game.addEventListener('startgame', startGame, this);
       game.addEventListener('timer', updateTimer, this);
-      game.start();
+      game.startgame();
     });
-    
+
+
+
   </script>
 </head>
 
@@ -67,47 +74,44 @@
       <img src="images/neo.svg" alt="logo-neoland">
     </div>
     <h1 class="general-title">
-      - LET´S CONQUER YOUR NEOLAND -</h1>
+      - Let´s conquer your land-</h1>
     <div id="container">
       <div class="canvas-wrapper">
         <canvas id="canvas" width="840" height="460"></canvas>
       </div>
       <div class="clear"></div>
       <div id="menutec">
-        <h1>Menu</h1>
+        <h1>Menú</h1>
         <ul>
-         <li><input class="playagain"type="boton" value="PLAY" onclick="javascript:window.location.reload();"/></li>
+          <li><input class="playagain" type="boton" value="PLAY" onclick="javascript:window.location.reload();" /></li>
           <li><a href="rules.html" class="anim-underline-ltr">How to play</a></li>
           <li><a href="techniques.html" class="anim-underline-ltr">Improving Skills</a></li>
           <li><a href="beapro.html" class="anim-underline-ltr">Be a PRO</a></li>
           <li><a href="history.html" class="anim-underline-ltr">About The Game</a></li>
           <li><a href="#" target="_blank" class="anim-underline-ltr">World Ranking</a></li>
-          
+
         </ul>
-<!--        //Cio G. Codigo-->
-        <script><script type="text/javascript">
-              function reFresh() 
-              location.reload(true)
-              }
-</script>
       </div>
       <div id="menurrss">
-        <ul>
-          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-        </ul>
+
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-facebook-f"></i></a>
+
       </div>
       <div id="status">
         <i class="fa fa-star" aria-hidden="true"> <em class="scores">Score:</em></i> <span id="score">0</span>
         <i class="fa fa-heart" aria-hidden="true"><em class="scores"> Lives:</em></i> <span id="lives">3</span>
-        <i class="fa fa-window-maximize" aria-hidden="true"><em class="scores"> Full:</em></i><span id="conqured">0</span>% <span id="timer">90</span>
+        <i class="fa fa-window-maximize" aria-hidden="true"><em class="scores"> Full:</em></i><span
+          id="conqured">0</span>% <span id="timer">90</span>
         <span class="clock"></span>
         <span class="seconds">seconds</span>
       </div>
-      <h2>- BOOTCAMP 2018 -</h2>
+      <h2>- NEO XONIX | 2018 -</h2>
       <div id="copyright">
-        <p>- REVISION 2018 & ADAPTED BY <a href="http://www.thehiretools.es/CioGPortfolio/" target="_blank">CIO G.</a> NEOLAND BOOTCAMP -</p>
-        <p>HTML5 VERSION CREATED BY YAIR LEVINSON AND ROEI OVED @ 2012 ORIGINAL DOS VERSION CREATED BY ILAN RAV AND DANI KATZ @ 1984</p>
+        <p>- REVISION 2018 & ADAPTED BY <a href="https://nachogp.github.io/CioGPortfolio/" target="_blank">CIO G.</a>
+        </p>
+        <p>HTML5 VERSION CREATED BY YAIR LEVINSON AND ROEI OVED @ 2012 ORIGINAL DOS VERSION CREATED BY ILAN RAV AND DANI
+          KATZ @ 1984</p>
       </div>
     </div>
   </div>
