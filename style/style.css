@@ -165,7 +165,7 @@ span.resalte{
   position: absolute;
   top: 300px;
   left: 52px;
-  width: auto;
+  width: 200px;
 }
 #menutec h1 {
   color: var(--second-bg-color);
@@ -270,6 +270,7 @@ h1.general-title {
   font-size: 25px;
   font-family: 'MyriadPro-bold', sans-serif;
   text-align: center;
+  font-weight: 200;
   padding: 1%;
   color: var(--fontColor);
 }

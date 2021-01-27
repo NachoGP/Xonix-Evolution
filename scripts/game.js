@@ -187,7 +187,7 @@ Game.prototype = {
         setTimeout(function () {
             //todo
         }, 1000);
-        $.alert("GAME OVER.\n\n NOS VEMOS! \n\n Ve al menu, pulsa 'PLAY' para intentar de nuevo");
+        $.alert("GAME OVER.\n\n ¿OTRA PARTIDA? \n\n Ve al menu, pulsa 'PLAY' para intentar de nuevo");
 
     },
     start: function () {
