@@ -190,23 +190,6 @@ Game.prototype = {
         $.alert("GAME OVER.\n\n NOS VEMOS! \n\n Ve al menu, pulsa 'PLAY' para intentar de nuevo");
 
     },
-
-    startgame: function () {
-        this._playAudio('level');
-        var self = this;
-        setTimeout(function () {
-            self.start()
-            self._updateTimer();
-            self.init()
-        }, 5000);
-        $.msgbox.onclose;
-        $.alert("¿PREPARAD@ PARA EMPEZAR?\n\n Muéteve con los cursores del teclado \n\n Comienzas en 5,4,3,2,1....: ¡SUERTE!");
-       
-    },
-
-
-
-
     start: function () {
         var self = this;
 
