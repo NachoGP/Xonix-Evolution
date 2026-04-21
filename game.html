@@ -187,7 +187,20 @@
           updateMuteIcon(game.get_mute());
           game.start();
         }
-        initGame();
+
+        // Check if coming from menu pages
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('from') === 'menu') {
+          // Show confirmation modal before starting game
+          if (confirm('¿LISTO PARA JUGAR? El juego comenzará cuando pulses Aceptar.')) {
+            initGame();
+          } else {
+            // If user cancels, redirect back to home
+            window.location.href = 'index.html';
+          }
+        } else {
+          initGame();
+        }
       });
     </script>
   </head>
