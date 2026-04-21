@@ -1,87 +1,120 @@
 <html lang="es">
   <head>
-    <title>Login - Xonix Pro Revolution</title>
+    <title>Xonix Pro Revolution - Home</title>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
     <link rel="stylesheet" type="text/css" href="style/style.css" />
     <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
-    <script src="https://raw.githack.com/composite/jQuery.MsgBox/master/jquery.msgbox.min.js"></script>
   </head>
   <body
     style="
-      background-color: #272626;
+      background-color: #1a1a1a;
       color: #fff;
       font-family: 'Cousine', monospace;
+      text-align: center;
     ">
-    <div id="login-screen" style="text-align: center; margin-top: 120px">
-      <img src="images/neo.svg" width="140" alt="logo" />
-      <h1 style="color: var(--neon-accent-blue); margin-top: 20px">
-        PLAYER LOGIN
+    <div style="margin-top: 100px">
+      <img
+        src="images/neo.svg"
+        width="200"
+        alt="logo"
+        style="margin-bottom: 30px" />
+
+      <h1
+        style="color: var(--neon-accent-blue); font-size: 48px; margin: 20px 0">
+        XONIX PRO REVOLUTION
       </h1>
-      <form id="login-form" style="margin-top: 25px">
-        <input
-          type="text"
-          id="username"
-          placeholder="Enter Nickname"
-          required
-          class="neon-input" />
-        <br /><br />
-        <button
-          type="submit"
-          style="
-            padding: 12px 30px;
-            cursor: pointer;
-            background: var(--gradient-primary);
-            border: none;
-            color: white;
-            font-weight: bold;
-            border-radius: 4px;
-          ">
-          START MISSION
-        </button>
-      </form>
+
+      <h2
+        style="color: var(--neon-accent-pink); font-size: 24px; margin: 30px 0">
+        2026 Edition
+      </h2>
+
+      <p
+        style="
+          font-size: 18px;
+          margin: 40px auto;
+          max-width: 600px;
+          line-height: 1.6;
+        ">
+        Classic arcade game reimagined. Conquer territories, avoid enemies, and
+        achieve the highest score!
+      </p>
+
+      <div style="margin-top: 50px">
+        <a href="login.html" style="text-decoration: none">
+          <button
+            style="
+              padding: 15px 50px;
+              cursor: pointer;
+              background: var(--gradient-primary);
+              border: none;
+              color: white;
+              font-weight: bold;
+              font-size: 20px;
+              border-radius: 4px;
+              margin: 10px;
+              transition: transform 0.2s;
+            "
+            onmouseover="this.style.transform = 'scale(1.05)'"
+            onmouseout="this.style.transform = 'scale(1)'">
+            PLAY NOW
+          </button>
+        </a>
+      </div>
+
+      <div style="margin-top: 60px; opacity: 0.8">
+        <p style="font-size: 14px">
+          <a
+            href="rules.html"
+            style="
+              color: var(--neon-accent-pink);
+              text-decoration: none;
+              margin: 0 15px;
+            "
+            >How to Play</a
+          >
+          <a
+            href="techniques.html"
+            style="
+              color: var(--neon-accent-pink);
+              text-decoration: none;
+              margin: 0 15px;
+            "
+            >Skills</a
+          >
+          <a
+            href="beapro.html"
+            style="
+              color: var(--neon-accent-pink);
+              text-decoration: none;
+              margin: 0 15px;
+            "
+            >Be a PRO</a
+          >
+          <a
+            href="ranking.html"
+            style="
+              color: var(--neon-accent-pink);
+              text-decoration: none;
+              margin: 0 15px;
+            "
+            >Rankings</a
+          >
+        </p>
+      </div>
     </div>
 
-    <div
-      id="loading-screen"
-      style="display: none; text-align: center; margin-top: 150px">
-      <h1 style="color: var(--neon-accent-pink)">PREPARING ENVIRONMENT...</h1>
-      <p>Loading sectors...</p>
+    <div style="position: absolute; bottom: 20px; width: 100%; opacity: 0.6">
+      <p style="font-size: 12px">- NEO XONIX | 2026 - HTML5 VERSION</p>
     </div>
 
     <script>
       $(document).ready(function () {
+        // Si ya está logueado, ir directo al juego
         if (localStorage.getItem('xonix_user')) {
           window.location.href = 'game.html';
         }
-
-        $('#login-form').on('submit', function (e) {
-          e.preventDefault();
-          const username = $('#username').val().trim();
-          const nicknameRegex = /^[a-zA-Z0-9. ]{3,12}$/;
-
-          if (!nicknameRegex.test(username)) {
-            $.msgbox(
-              'Nickname no válido. Usa letras, números, puntos y espacios (3-12 caracteres).',
-            );
-            return;
-          }
-
-          localStorage.setItem(
-            'xonix_user',
-            JSON.stringify({
-              username: username,
-              bestScore: 0,
-            }),
-          );
-
-          $('#login-screen').hide();
-          $('#loading-screen').fadeIn();
-
-          setTimeout(function () {
-            window.location.href = 'game.html';
-          }, 1500);
-        });
       });
     </script>
   </body>

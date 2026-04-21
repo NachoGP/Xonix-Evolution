@@ -66,12 +66,17 @@
           },
           function (result) {
             if (game) game._playAudio('click');
+            console.log('GameOver result:', result);
             var action = (result || '').toString().trim().toUpperCase();
             if (action === 'VOLVER A JUGAR') {
               window.location.reload();
-            } else if (action === 'NUEVO JUGADOR') {
+            } else if (
+              action === 'NUEVO JUGADOR' ||
+              action === 'OK' ||
+              result === true
+            ) {
               localStorage.removeItem('xonix_user');
-              window.location.href = 'index.html';
+              window.location.replace('login.html');
             }
           },
         );
@@ -80,7 +85,7 @@
       $(document).ready(function () {
         const savedUser = localStorage.getItem('xonix_user');
         if (!savedUser) {
-          window.location.href = 'index.html';
+          window.location.href = 'login.html';
           return;
         }
 
@@ -126,10 +131,18 @@
             },
             function (result) {
               if (game) game._playAudio('click');
+              console.log('Logout result:', result);
               var action = (result || '').toString().trim().toUpperCase();
-              if (action === 'CERRAR SESION' || action === 'CERRAR SESIÓN') {
+
+              // Validamos CERRAR SESION, OK o respuesta positiva del modal
+              if (
+                action === 'CERRAR SESION' ||
+                action === 'CERRAR SESIÓN' ||
+                action === 'OK' ||
+                result === true
+              ) {
                 localStorage.removeItem('xonix_user');
-                window.location.href = 'index.html';
+                window.location.replace('login.html');
               } else if (game && !wasPaused) {
                 game.start();
               }
@@ -178,19 +191,7 @@
           game.addEventListener('timer', updateTimer, this);
           game.addEventListener('levelUp', showLevelUp, this);
           updateMuteIcon(game.get_mute());
-
-          // Modal de bienvenida antes de arrancar el motor del juego
-          $.msgbox(
-            'SISTEMAS ONLINE. ¿Preparado para iniciar la incursión?',
-            {
-              type: 'confirm',
-              buttons: [{ type: 'submit', value: 'COMENZAR' }],
-            },
-            function (result) {
-              if (game) game._playAudio('click');
-              game.start();
-            },
-          );
+          game.start();
         }
         initGame();
       });
@@ -206,13 +207,18 @@
     <div class="wrapper" style="display: none">
       <div class="backtogame">
         <a href="javascript:void(0)" id="logout-btn">
-          <i class="fa fa-user-times" aria-hidden="true"></i> <br />Cambiar
-          Usuario
+          <div class="custom-button">
+            <i class="fa fa-user-times" aria-hidden="true"></i> <br />Change
+          </div>
+
+          Player
         </a>
       </div>
       <div class="backtogame">
         <a href="javascript:void(0)" id="mute-btn-link">
-          <i class="fa fa-volume-up" aria-hidden="true"></i> <br />Audio
+          <div class="custom-button">
+            <i class="fa fa-volume-up" aria-hidden="true"></i> <br />Audio
+          </div>
         </a>
       </div>
       <div class="subtitle">
@@ -258,7 +264,7 @@
                 href="javascript:void(0)"
                 id="logout-link"
                 class="anim-underline-ltr"
-                >Cambiar Usuario</a
+                >Change Player</a
               >
             </li>
           </ul>
@@ -283,21 +289,23 @@
           <span class="clock"></span>
           <span class="seconds">seconds</span>
         </div>
-        <h2>- NEO XONIX | 2026 -</h2>
-        <div id="copyright">
-          <p class="white-text">
-            - REVISION 2026 & ADAPTED BY
-            <a
-              class="white-text"
-              href="https://nachogp.github.io/CioGPortfolio/"
-              target="_blank"
-              >CIO G.</a
-            >
-          </p>
-          <p class="white-text">
-            HTML5 VERSION CREATED BY YAIR LEVINSON AND ROEI OVED @ 2012 ORIGINAL
-            DOS VERSION CREATED BY ILAN RAV AND DANI KATZ @ 1984
-          </p>
+        <div class="footer">
+          <h2>- NEO XONIX | 2026 -</h2>
+          <div id="copyright">
+            <p class="white-text">
+              - REVISION 2026 & ADAPTED BY
+              <a
+                class="white-text"
+                href="https://nachogp.github.io/CioGPortfolio/"
+                target="_blank"
+                >CIO G.</a
+              >
+            </p>
+            <p class="white-text">
+              HTML5 VERSION CREATED BY YAIR LEVINSON AND ROEI OVED @ 2012
+              ORIGINAL DOS VERSION CREATED BY ILAN RAV AND DANI KATZ @ 1984
+            </p>
+          </div>
         </div>
       </div>
     </div>

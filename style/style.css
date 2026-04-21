@@ -70,13 +70,20 @@ canvas {
   border-radius: 4px;
   border: 2px solid #484848;
 }
+
+button.msgbox-button.msgbox-ok {
+  width: 200px !important;
+}
+
 .msgbox-msg {
   color: var(--text-light);
   background: var(--bg-black);
   border: none;
   border-bottom: 2px solid var(--neon-accent-pink);
-  text-align: center;
-  width: 100%;
+  text-align: center !important;
+  display: block !important;
+  width: 100% !important;
+  clear: both;
   height: auto;
   font-size: 18px;
   font-family: 'Cousine', monospace;
@@ -84,6 +91,7 @@ canvas {
   padding: 20px;
 }
 .msgbox-ui {
+  display: block;
   position: fixed;
   top: 0;
   left: 0;
@@ -95,14 +103,18 @@ canvas {
   align-items: center;
   justify-content: center;
 }
+.custom-button {
+  display: ruby;
+}
 .msgbox-ui .msgbox-alert {
   border: 2px solid var(--neon-accent-pink);
   background-color: var(--bg-black);
   min-width: 400px;
   position: relative;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch;
   box-shadow:
     0 0 20px var(--neon-accent-pink),
     inset 0 0 10px rgba(255, 97, 110, 0.3);
@@ -115,10 +127,13 @@ button.msgbox-button.msgbox-ok {
   box-sizing: border-box;
 }
 .msgbox-buttons {
-  display: flex;
+  display: flex !important;
+  width: 100% !important;
+  flex-direction: row !important;
   justify-content: center;
   gap: 20px;
   padding: 10px 20px 25px;
+  clear: both;
 }
 button.msgbox-button {
   padding: 0 35px;
@@ -135,6 +150,7 @@ button.msgbox-button {
 }
 button.msgbox-button:hover {
   color: var(--bg-black);
+  border: none;
   background: var(--gradient-primary);
   box-shadow: 0 0 15px var(--neon-accent-pink);
 }
@@ -250,8 +266,27 @@ span.resalte {
   border: 1px solid var(--neon-accent-blue); /* Neon border */
 }
 #menutec ul li .playagain:hover {
-  background: var(--gradient-inverted); /* Inverted gradient on hover */
-  border-color: var(--neon-accent-pink); /* Change border color on hover */
+  background: var(--gradient-inverted);
+  border-color: var(--neon-accent-pink);
+  animation: none; /* Detener el parpadeo al pasar el ratón */
+}
+
+/* Animación de parpadeo neón para el botón PLAY */
+.playagain {
+  animation: neonBlink 1.5s infinite alternate;
+}
+
+@keyframes neonBlink {
+  0% {
+    box-shadow:
+      0 0 5px var(--neon-accent-blue),
+      0 0 10px var(--neon-accent-blue);
+  }
+  100% {
+    box-shadow:
+      0 0 10px var(--neon-accent-pink),
+      0 0 20px var(--neon-accent-pink);
+  }
 }
 .anim-underline-ltr {
   position: relative;
@@ -376,6 +411,15 @@ p {
   filter: grayscale(0.8);
   opacity: 0.8;
   color: var(--neon-accent-pink);
+}
+.footer {
+  position: fixed;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+}
+.footer-copy {
+  margin-bottom: 16px;
 }
 a#mute-btn-link {
   top: 200px; /* Posiciona el botón de audio debajo del de "Cambiar Usuario" (que está en 90px) */
