@@ -120,34 +120,17 @@
           const wasPaused = game ? game._paused : true;
           if (game) game.stop();
 
-          $.msgbox(
-            '¿ESTÁS SEGURO? Se cerrará la sesión actual y volverás a la pantalla de identificación.',
-            {
-              type: 'confirm',
-              buttons: [
-                { type: 'submit', value: 'CERRAR SESION' },
-                { type: 'cancel', value: 'CANCELAR' },
-              ],
-            },
-            function (result) {
-              if (game) game._playAudio('click');
-              console.log('Logout result:', result);
-              var action = (result || '').toString().trim().toUpperCase();
-
-              // Validamos CERRAR SESION, OK o respuesta positiva del modal
-              if (
-                action === 'CERRAR SESION' ||
-                action === 'CERRAR SESIÓN' ||
-                action === 'OK' ||
-                result === true
-              ) {
-                localStorage.removeItem('xonix_user');
-                window.location.replace('login.html');
-              } else if (game && !wasPaused) {
-                game.start();
-              }
-            },
-          );
+          // Use browser's built-in confirm dialog for reliability
+          if (confirm('¿ESTÁS SEGURO? Se cerrará la sesión actual y volverás a la pantalla de identificación.')) {
+            console.log('User confirmed logout');
+            localStorage.removeItem('xonix_user');
+            window.location.replace('login.html');
+          } else {
+            console.log('Logout cancelled, resuming game if needed');
+            if (game && !wasPaused) {
+              game.start();
+            }
+          }
         });
 
         $('.playagain').on('click', function () {
