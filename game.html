@@ -117,14 +117,25 @@
 
         $(document).on('click', '#logout-btn, #logout-link', function (e) {
           e.preventDefault();
+          console.log('Logout button clicked:', this.id);
+
           const wasPaused = game ? game._paused : true;
-          if (game) game.stop();
+          console.log('Game was paused:', wasPaused);
+
+          if (game) {
+            game.stop();
+            console.log('Game stopped');
+          }
 
           // Use browser's built-in confirm dialog for reliability
-          if (confirm('¿ESTÁS SEGURO? Se cerrará la sesión actual y volverás a la pantalla de identificación.')) {
-            console.log('User confirmed logout');
+          const userConfirmed = confirm('¿ESTÁS SEGURO? Se cerrará la sesión actual y volverás a la pantalla de identificación.');
+          console.log('User confirmed logout:', userConfirmed);
+
+          if (userConfirmed) {
+            console.log('Removing user from localStorage');
             localStorage.removeItem('xonix_user');
-            window.location.replace('login.html');
+            console.log('Redirecting to login.html');
+            window.location.href = 'login.html';
           } else {
             console.log('Logout cancelled, resuming game if needed');
             if (game && !wasPaused) {
