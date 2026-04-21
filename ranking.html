@@ -14,7 +14,7 @@
       <div style="text-align: center; margin-top: 50px; margin-bottom: 10px">
         <img src="images/neo.svg" style="width: 100px" alt="logo" />
       </div>
-      <h1 style="text-align: center">- TOP PLAYERS -</h1>
+      <h1 style="text-align: center">- TOP 5 PLAYERS -</h1>
       <div
         id="ranking-container"
         style="
@@ -22,11 +22,17 @@
           margin: 0 auto;
           background: #000;
           padding: 20px;
+          border: 1px solid var(--neon-accent-blue);
+          box-shadow: 0 0 15px var(--neon-accent-blue);
         ">
         <table style="width: 100%; border-collapse: collapse">
           <thead>
-            <tr style="border-bottom: 1px solid #ff616d">
-              <th>POS</th>
+            <tr
+              style="
+                border-bottom: 2px solid var(--neon-accent-pink);
+                color: var(--neon-accent-pink);
+              ">
+              <th style="padding: 10px">POS</th>
               <th>PLAYER</th>
               <th>SCORE</th>
               <th>DATE</th>
@@ -38,8 +44,8 @@
         </table>
       </div>
       <div class="backtogame">
-        <a href="index.html"
-          ><i class="fa fa-gamepad" aria-hidden="true"></i> <br />Volver a
+        <a href="game.html"
+          ><i class="fa fa-gamepad" aria-hidden="true"></i> <br />Volver al
           Juego</a
         >
       </div>
@@ -52,15 +58,15 @@
 
         if (ranking.length === 0) {
           body.append(
-            '<tr><td colspan="4" style="text-align:center;">No records yet</td></tr>',
+            '<tr><td colspan="4" style="text-align:center; padding: 20px; color: var(--neon-accent-pink);">No records yet</td></tr>',
           );
         } else {
-          ranking.forEach((entry, index) => {
+          ranking.slice(0, 5).forEach((entry, index) => {
             body.append(`
-                        <tr style="text-align: center;">
-                            <td>${index + 1}</td>
+                        <tr style="text-align: center; border-bottom: 1px solid #333;">
+                            <td style="padding: 10px; color: var(--neon-accent-blue); font-weight: bold;">${index + 1}</td>
                             <td>${entry.name}</td>
-                            <td>${entry.score}</td>
+                            <td style="color: var(--neon-accent-pink);">${entry.score}</td>
                             <td>${entry.date}</td>
                         </tr>
                     `);

@@ -18,7 +18,7 @@ function Game(rows, cols, blockSize, frame, ctx) {
   this._numOfLives;
   this._level;
 
-  this._mute = false;
+  this._mute = this.get_mute();
   this._fps = Game.INITIAL_FRAME_RATE;
   this._levelTime = Game.INITIAL_TIME_SEC;
   this._audio = [];
@@ -26,6 +26,7 @@ function Game(rows, cols, blockSize, frame, ctx) {
   this._audio['end'] = new Audio('sounds/end2.mp3');
   this._audio['timeout'] = new Audio('sounds/timeout.wav');
   this._audio['level'] = new Audio('sounds/level2.mp3');
+  this._audio['click'] = new Audio('sounds/click.wav');
   this._loadAudio();
 
   this._intervalId;
@@ -226,7 +227,7 @@ Game.prototype = {
         date: new Date().toLocaleDateString(),
       });
       ranking.sort((a, b) => b.score - a.score);
-      ranking = ranking.slice(0, 10); // Top 10
+      ranking = ranking.slice(0, 5); // Top 5
       localStorage.setItem('xonix_ranking', JSON.stringify(ranking));
     }
   },
@@ -484,18 +485,20 @@ Game.prototype = {
   },
 
   get_mute: function () {
-    var mute = $.jStorage.get('mute');
-
-    if (mute == null || mute == undefined) {
-      mute = false;
-      $.jStorage.set('mute', mute);
+    // Usar localStorage nativo en lugar de jStorage
+    const muteState = localStorage.getItem('xonix_mute');
+    if (muteState === null) {
+      // Por defecto, no silenciado si no está configurado
+      localStorage.setItem('xonix_mute', 'false');
+      return false;
     }
-
-    return mute;
+    return muteState === 'true';
   },
 
   set_mute: function (status) {
-    $.jStorage.set('mute', status);
+    // Usar localStorage nativo en lugar de jStorage
+    localStorage.setItem('xonix_mute', status.toString());
+    this._mute = status;
   },
 
   toggleMute: function () {

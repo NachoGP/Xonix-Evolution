@@ -18,6 +18,7 @@
       <h1 style="color: var(--neon-accent-blue); margin-top: 20px">
         PLAYER LOGIN
       </h1>
+
       <form id="login-form" style="margin-top: 25px">
         <input
           type="text"
@@ -51,6 +52,7 @@
 
     <script>
       $(document).ready(function () {
+        // Si ya está logueado, ir directo al juego
         if (localStorage.getItem('xonix_user')) {
           window.location.href = 'game.html';
         }
@@ -58,6 +60,8 @@
         $('#login-form').on('submit', function (e) {
           e.preventDefault();
           const username = $('#username').val().trim();
+
+          // REGEX: Letras, números, punto y espacio. Min 3, Max 12.
           const nicknameRegex = /^[a-zA-Z0-9. ]{3,12}$/;
 
           if (!nicknameRegex.test(username)) {
@@ -67,6 +71,7 @@
             return;
           }
 
+          // Guardar usuario
           localStorage.setItem(
             'xonix_user',
             JSON.stringify({
@@ -75,6 +80,7 @@
             }),
           );
 
+          // Efecto visual de carga
           $('#login-screen').hide();
           $('#loading-screen').fadeIn();
 

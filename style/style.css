@@ -101,6 +101,8 @@ canvas {
   min-width: 400px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
   box-shadow:
     0 0 20px var(--neon-accent-pink),
     inset 0 0 10px rgba(255, 97, 110, 0.3);
@@ -112,16 +114,24 @@ button.msgbox-button.msgbox-ok {
   font-family: 'Cousine', monospace;
   box-sizing: border-box;
 }
+.msgbox-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 10px 20px 25px;
+}
 button.msgbox-button {
-  width: 100%;
+  padding: 0 35px;
   border: none;
   background: var(--bg-dark);
   color: var(--neon-accent-blue);
   text-transform: uppercase;
   font-weight: bold;
-  line-height: 30px;
+  line-height: 60px;
   animation: ease 1s;
   cursor: pointer;
+  border-radius: 2em;
+  border: none;
 }
 button.msgbox-button:hover {
   color: var(--bg-black);
@@ -288,7 +298,8 @@ span.resalte {
   display: flex;
   justify-content: space-around;
 }
-p.white-text {
+p.white-text,
+a.white-text {
   color: var(--text-light);
 }
 #status span {
@@ -308,6 +319,7 @@ h2 {
   font-size: 14px;
   font-family: 'Cousine', monospace;
   text-align: center;
+  color: #ff616d;
 }
 .subtitle img {
   float: left;
@@ -347,15 +359,26 @@ p {
 .backtogame a {
   display: block;
   position: fixed;
-  top: 20px;
+  top: 90px;
   color: var(--text-light); /* Light text */
   padding: 1.34%;
   border-radius: 3px;
-  font-size: 18px;
   text-decoration: none;
   background: var(--gradient-primary); /* Neon gradient */
   right: 0;
   border: 1px solid var(--neon-accent-blue); /* Neon border */
+}
+/* Estado cuando el audio está silenciado */
+.backtogame a.is-muted {
+  background: #222 !important;
+  border-color: var(--neon-accent-pink);
+  box-shadow: inset 0 0 15px rgba(255, 97, 110, 0.4);
+  filter: grayscale(0.8);
+  opacity: 0.8;
+  color: var(--neon-accent-pink);
+}
+a#mute-btn-link {
+  top: 200px; /* Posiciona el botón de audio debajo del de "Cambiar Usuario" (que está en 90px) */
 }
 i.fa.fa-gamepad {
   text-align: center;
@@ -498,10 +521,10 @@ a.anim-underline-ltr-4:hover:before {
   font-family: 'Cousine', monospace;
   font-size: 80px;
   font-weight: bold;
-  color: var(--neon-accent-blue);
+  color: var(--neon-accent-pink);
   text-shadow:
-    0 0 10px var(--neon-accent-blue),
-    0 0 40px var(--neon-accent-blue);
+    0 0 10px var(--neon-accent-pink),
+    0 0 40px var(--neon-accent-pink);
   z-index: 10001;
   display: none;
   pointer-events: none;
@@ -528,4 +551,27 @@ a.anim-underline-ltr-4:hover:before {
     transform: translate(-50%, -50%) scale(1.5);
     opacity: 0;
   }
+}
+
+/* Estilos para el input de Nickname con efecto neón */
+.neon-input {
+  padding: 12px;
+  font-family: 'Cousine', monospace;
+  background: var(--bg-darkest); /* Usamos la variable para consistencia */
+  color: var(--text-light); /* Usamos la variable para consistencia */
+  border: 1px solid var(--neon-accent-blue);
+  min-width: 250px;
+  transition:
+    box-shadow 0.3s ease-in-out,
+    border-color 0.3s ease-in-out;
+}
+
+.neon-input:focus {
+  outline: none; /* Elimina el outline por defecto del navegador */
+  border-color: var(
+    --neon-accent-pink
+  ); /* Cambia el color del borde al enfocar */
+  box-shadow:
+    0 0 15px var(--neon-accent-pink),
+    0 0 5px var(--neon-accent-pink) inset; /* Efecto de resplandor neón */
 }
