@@ -178,7 +178,19 @@
           game.addEventListener('timer', updateTimer, this);
           game.addEventListener('levelUp', showLevelUp, this);
           updateMuteIcon(game.get_mute());
-          game.start();
+
+          // Modal de bienvenida antes de arrancar el motor del juego
+          $.msgbox(
+            'SISTEMAS ONLINE. ¿Preparado para iniciar la incursión?',
+            {
+              type: 'confirm',
+              buttons: [{ type: 'submit', value: 'COMENZAR' }],
+            },
+            function (result) {
+              if (game) game._playAudio('click');
+              game.start();
+            },
+          );
         }
         initGame();
       });
