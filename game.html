@@ -128,7 +128,9 @@
           }
 
           // Use browser's built-in confirm dialog for reliability
-          const userConfirmed = confirm('¿ESTÁS SEGURO? Se cerrará la sesión actual y volverás a la pantalla de identificación.');
+          const userConfirmed = confirm(
+            '¿ESTÁS SEGURO? Se cerrará la sesión actual y volverás a la pantalla de identificación.',
+          );
           console.log('User confirmed logout:', userConfirmed);
 
           if (userConfirmed) {
@@ -192,7 +194,11 @@
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('from') === 'menu') {
           // Show confirmation modal before starting game
-          if (confirm('¿LISTO PARA JUGAR? El juego comenzará cuando pulses Aceptar.')) {
+          if (
+            confirm(
+              '¿LISTO PARA JUGAR? El juego comenzará cuando pulses Aceptar.',
+            )
+          ) {
             initGame();
           } else {
             // If user cancels, redirect back to home
