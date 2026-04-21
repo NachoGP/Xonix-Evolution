@@ -1,0 +1,285 @@
+<html lang="es">
+  <link rel="stylesheet" href="style.css" />
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+
+  <head>
+    <title>Xonix Pro Revolution 2026</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="style/reset.min.css" />
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Cousine:400,700"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="fonts/MyriadPro-Bold.otf" />
+    <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="scripts/event_handler.js"></script>
+    <script type="text/javascript" src="scripts/movable.js"></script>
+    <script type="text/javascript" src="scripts/vector.js"></script>
+    <script type="text/javascript" src="scripts/grid.js"></script>
+    <script type="text/javascript" src="scripts/ball.js"></script>
+    <script type="text/javascript" src="scripts/monster.js"></script>
+    <script type="text/javascript" src="scripts/player.js"></script>
+    <script type="text/javascript" src="scripts/game.js"></script>
+    <script src="https://use.fontawesome.com/8dd2d21d1f.js"></script>
+    <!--    plugin de JQuery llamado MsgBox y personalizarlo con css: Game Over en game.js-->
+    <script src="https://raw.githack.com/composite/jQuery.MsgBox/master/jquery.msgbox.min.js"></script>
+    <script>
+      var canvasWidth = 840,
+        canvasHeight = 460,
+        frame = 20,
+        blockSize = 10;
+      var game;
+
+      function updateScore(value) {
+        $('#score').html(value);
+      }
+
+      function updateLives(value) {
+        $('#lives').html(value);
+      }
+
+      function updateConquered(value) {
+        $('#conqured').html(value);
+      }
+
+      function updateTimer(value) {
+        $('#timer').html(value);
+      }
+
+      function showLevelUp(level) {
+        const $el = $('#level-up');
+        $el.text('LEVEL ' + level).addClass('level-up-anim');
+        setTimeout(() => {
+          $el.removeClass('level-up-anim');
+        }, 1500);
+      }
+
+      function gameOver(value) {
+        $.msgbox(
+          'MISSION FAILED. Score: ' + value,
+          {
+            type: 'confirm',
+            buttons: [
+              { type: 'submit', value: 'Volver a jugar' },
+              { type: 'cancel', value: 'Nuevo Jugador' },
+            ],
+          },
+          function (result) {
+            if (result === 'Volver a jugar') {
+              // El usuario permanece en localStorage, se salta el login al recargar
+              location.reload();
+            } else if (result === 'Nuevo Jugador') {
+              // Borramos sesión y volvemos al estado inicial
+              localStorage.removeItem('xonix_user');
+              location.reload();
+            }
+          },
+        );
+      }
+
+      $(document).ready(function () {
+        // Si el usuario ya existe en memoria, saltamos el login y mostramos el menú
+        const savedUser = localStorage.getItem('xonix_user');
+        if (savedUser) {
+          const user = JSON.parse(savedUser);
+          $('#player-name').text(user.username);
+          $('#best-score').text(user.bestScore || 0);
+          $('#login-screen').hide();
+          $('.wrapper').show();
+        }
+
+        // Lógica de Login
+        $('#login-form').on('submit', function (e) {
+          e.preventDefault();
+          const username = $('#username').val();
+          if (username) {
+            localStorage.setItem(
+              'xonix_user',
+              JSON.stringify({
+                username: username,
+                bestScore: 0,
+              }),
+            );
+            $('#player-name').text(username);
+            $('#best-score').text(0);
+            showLoading();
+          }
+        });
+
+        // Manejador para el botón PLAY del menú (inicia el juego sin recargar)
+        $('.playagain').on('click', function () {
+          showLoading();
+        });
+
+        // Manejador para el botón de Pausa (Zona Superior)
+        $(document).on('click', '#pause-btn', function () {
+          if (game) {
+            if (game._paused) {
+              game.start();
+              $(this).find('i').removeClass('fa-play').addClass('fa-pause');
+              $(this).find('em').text(' PAUSE');
+            } else {
+              game.stop();
+              $(this).find('i').removeClass('fa-pause').addClass('fa-play');
+              $(this).find('em').text(' RESUME');
+            }
+          }
+        });
+
+        function showLoading() {
+          $('#login-screen').hide();
+          $('#loading-screen').show();
+          setTimeout(startGame, 2000); // Simulamos carga
+        }
+
+        function startGame() {
+          $('#loading-screen').hide();
+          $('.wrapper').fadeIn();
+          initGame();
+        }
+
+        function initGame() {
+          var canvas = document.getElementById('canvas');
+          var ctx = canvas.getContext('2d');
+          game = new Game(
+            canvasHeight / blockSize,
+            canvasWidth / blockSize,
+            blockSize,
+            frame / blockSize,
+            ctx,
+          );
+          game.addEventListener('conquer', updateConquered, this);
+          game.addEventListener('fail', updateLives, this);
+          game.addEventListener('score', updateScore, this);
+          game.addEventListener('end', gameOver, this);
+          game.addEventListener('timer', updateTimer, this);
+          game.addEventListener('levelUp', showLevelUp, this);
+          game.start();
+        }
+      });
+    </script>
+  </head>
+
+  <body
+    style="
+      background-color: #000;
+      color: #fff;
+      font-family: 'Cousine', monospace;
+    ">
+    <!-- Login Screen -->
+    <div
+      id="login-screen"
+      style="text-align: center; margin-top: 120px; padding-bottom: 50px">
+      <img src="images/neo.svg" width="140" alt="logo" />
+      <h1>PLAYER LOGIN</h1>
+      <form id="login-form" style="margin-top: 25px">
+        <input
+          type="text"
+          id="username"
+          placeholder="Enter Nickname"
+          required
+          style="padding: 10px; font-family: 'Cousine'" />
+        <button type="submit" style="padding: 10px; cursor: pointer">
+          START MISSION
+        </button>
+      </form>
+    </div>
+
+    <!-- Loading Screen -->
+    <div
+      id="loading-screen"
+      style="display: none; text-align: center; margin-top: 150px">
+      <div class="loader"></div>
+      <h1>PREPARING ENVIROMENT...</h1>
+      <p>Loading sectors...</p>
+    </div>
+
+    <div id="level-up">LEVEL UP</div>
+
+    <div class="wrapper" style="display: none">
+      <div class="subtitle">
+        <img src="images/neo.svg" alt="logo-neoland" />
+      </div>
+      <h1 class="general-title">- PLAYER: <span id="player-name">-</span> -</h1>
+      <h1
+        class="general-title"
+        style="
+          font-size: 18px;
+          margin-top: -20px;
+          color: var(--neon-accent-pink);
+        ">
+        - BEST SCORE: <span id="best-score">0</span> -
+      </h1>
+      <div id="container">
+        <div class="canvas-wrapper">
+          <canvas id="canvas" width="840" height="460"></canvas>
+        </div>
+        <div class="clear"></div>
+        <div id="menutec">
+          <h1>Menú</h1>
+          <ul>
+            <li>
+              <input class="playagain" type="button" value="PLAY" />
+            </li>
+            <li>
+              <a href="rules.html" class="anim-underline-ltr">How to play</a>
+            </li>
+            <li>
+              <a href="techniques.html" class="anim-underline-ltr"
+                >Improving Skills</a
+              >
+            </li>
+            <li>
+              <a href="beapro.html" class="anim-underline-ltr">Be a PRO</a>
+            </li>
+            <li>
+              <a href="ranking.html" class="anim-underline-ltr"
+                >World Ranking</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div id="status">
+          <a
+            href="javascript:void(0)"
+            id="pause-btn"
+            style="text-decoration: none; color: inherit">
+            <i class="fa fa-pause" aria-hidden="true"></i>
+            <em class="scores"> PAUSE</em>
+          </a>
+          <i class="fa fa-star" aria-hidden="true">
+            <em class="scores">Score:</em></i
+          >
+          <span id="score">0</span>
+          <i class="fa fa-heart" aria-hidden="true"
+            ><em class="scores"> Lives:</em></i
+          >
+          <span id="lives">3</span>
+          <i class="fa fa-window-maximize" aria-hidden="true"
+            ><em class="scores"> Full:</em></i
+          ><span id="conqured">0</span>% <span id="timer">90</span>
+          <span class="clock"></span>
+          <span class="seconds">seconds</span>
+        </div>
+        <h2>- NEO XONIX | 2026 -</h2>
+        <div id="copyright">
+          <p class="white-text">
+            - REVISION 2026 & ADAPTED BY
+            <a
+              class="white-text"
+              href="https://nachogp.github.io/CioGPortfolio/"
+              target="_blank"
+              >CIO G.</a
+            >
+          </p>
+          <p class="white-text">
+            HTML5 VERSION CREATED BY YAIR LEVINSON AND ROEI OVED @ 2012 ORIGINAL
+            DOS VERSION CREATED BY ILAN RAV AND DANI KATZ @ 1984
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,97 @@
+*{
+  box-sizing: border-box;
+ 
+}
+.wrapper{
+    width: 100%;
+    margin: 0 auto;
+    abackground-color: #585858;
+}
+body {
+    font-family: 'Play', sans-serif;
+    background-color: #fa5757;
+}
+#lives{
+    color: #ddd210;
+}
+.img-title{
+  display: flex;
+  width: 100%;
+  height: auto;
+  
+}
+.img-title h1{
+ position: relative;
+  top:20px;
+  left: -90px;
+  font-size: 30px;
+  text-align: center;
+  margin: 0 auto;
+}
+#timer{
+
+  color: #f2f2f2;
+  position: absolute;
+  top:140px;
+  left:62px;
+  padding: 30px;
+  background: #484848;
+  border-radius: 50%;
+  text-align: center;
+  margin: 0 auto;
+}
+.intro_cotainer{
+    text-align: center;
+    padding-top: 110px;
+}
+#container {
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+  
+}
+#container #canvas {
+   align-content: center;
+   background: #484848;
+}
+#status {
+    width: 100%;
+    color: #fff;
+    font-size: 25px;
+    padding: .5%;
+    margin:0;
+/*    background: #585858;*/
+}
+#status span{
+    margin-left:1%;
+}
+h1{
+    font-size: 24px;
+    font-family: 'Play', sans-serif;
+    text-align: center;
+    color: #fff;
+}
+h2{
+    font-size: 14px;
+    font-family: 'Alfa Slab One', cursive;
+    text-align: center;
+}
+.subtitle img{
+    float: left;
+    max-width: 200px;
+    margin-left: 2%;
+    margin-right: 2%;
+    margin-bottom: 0;
+}
+p{
+    text-align: center;
+    font-size: 1.4vh;
+    color: floralwhite;
+}
+.img-title{
+   display: flex;
+  margin: 0 auto;
+    text-align: center;
+
+}

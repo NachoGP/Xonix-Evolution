@@ -1,0 +1,41 @@
+application: html5xonix
+version: 2
+runtime: python
+api_version: 1
+
+handlers:
+- url: /
+  static_files: index.html
+  upload: index.html
+
+- url: /play
+  static_files: index.html
+  upload: index.html
+
+- url: /leaderboard/set
+  script: leaderboard.py
+
+- url: /leaderboard/get
+  script: leaderboard.py
+
+- url: /leaderboard/del
+  script: leaderboard.py
+
+- url: /fonts
+  static_dir: fonts
+  mime_type: font/ttf
+
+- url: /images
+  static_dir: images
+
+- url: /scripts
+  static_dir: scripts
+
+- url: /sounds
+  static_dir: sounds
+
+- url: /style
+  static_dir: style
+
+- url: /views
+  static_dir: views

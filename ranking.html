@@ -1,0 +1,71 @@
+<html lang="en">
+  <head>
+    <title>Xonix Ranking</title>
+    <link rel="stylesheet" type="text/css" href="style/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Cousine:400,700"
+      rel="stylesheet" />
+    <script type="text/javascript" src="scripts/jquery-3.3.1.min.js"></script>
+    <script src="https://use.fontawesome.com/8dd2d21d1f.js"></script>
+  </head>
+  <body style="background-color: #272626; color: #fff; font-family: 'Cousine'">
+    <div class="wrapper">
+      <div style="text-align: center; margin-top: 50px; margin-bottom: 10px">
+        <img src="images/neo.svg" style="width: 100px" alt="logo" />
+      </div>
+      <h1 style="text-align: center">- TOP PLAYERS -</h1>
+      <div
+        id="ranking-container"
+        style="
+          max-width: 600px;
+          margin: 0 auto;
+          background: #000;
+          padding: 20px;
+        ">
+        <table style="width: 100%; border-collapse: collapse">
+          <thead>
+            <tr style="border-bottom: 1px solid #ff616d">
+              <th>POS</th>
+              <th>PLAYER</th>
+              <th>SCORE</th>
+              <th>DATE</th>
+            </tr>
+          </thead>
+          <tbody id="ranking-body">
+            <!-- Se llena con JS -->
+          </tbody>
+        </table>
+      </div>
+      <div class="backtogame">
+        <a href="index.html"
+          ><i class="fa fa-gamepad" aria-hidden="true"></i> <br />Volver a
+          Juego</a
+        >
+      </div>
+    </div>
+
+    <script>
+      $(document).ready(function () {
+        const ranking = JSON.parse(localStorage.getItem('xonix_ranking')) || [];
+        const body = $('#ranking-body');
+
+        if (ranking.length === 0) {
+          body.append(
+            '<tr><td colspan="4" style="text-align:center;">No records yet</td></tr>',
+          );
+        } else {
+          ranking.forEach((entry, index) => {
+            body.append(`
+                        <tr style="text-align: center;">
+                            <td>${index + 1}</td>
+                            <td>${entry.name}</td>
+                            <td>${entry.score}</td>
+                            <td>${entry.date}</td>
+                        </tr>
+                    `);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
